@@ -5,17 +5,23 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Alphabet {
-    //List<Character> alphabetEnglish=new ArrayList<>();
-    //List<Character> symbol=new ArrayList<>();
-
-    public List<Character> getAlphabet() {//Create collection with english alphabet
-        List<Character> alphabetEnglish =new ArrayList<>(Arrays.asList('a','b','c','d','e','f','g','h','i','j','k','l',
-                                        'm','n','o','p','q','r','s','t','u','v','w','x','y','z'));
-        return alphabetEnglish;
+    public List<Character> getAlphabetSmallLetters() {//Create collection with small letters of english alphabet
+        List<Character> getAlphabetSmallLetters = new ArrayList<>(Arrays.asList());
+        for (char ch = 'a'; ch <= 'z'; ch++) {
+            getAlphabetSmallLetters.add(ch);
+        }
+        return getAlphabetSmallLetters;
+    }
+    public List<Character> getAlphabetBigLetters() {//Create collection with big letters of english alphabet
+        List<Character> getAlphabetBigLetters =new ArrayList<>(Arrays.asList());
+        for (char ch= 'A'; ch<='Z';ch++ ){
+            getAlphabetBigLetters.add(ch);
+        }
+        return getAlphabetBigLetters;
     }
 
     public List<Character> getSymbol() {//Create collection of special symbol
-        List<Character> symbol=new ArrayList<>(Arrays.asList('.', ',', '«', '»', '"', '\'', ':', '!', '?', ' '));
-        return symbol;
+        List<Character> getSymbol=new ArrayList<>(Arrays.asList('.', ',', '«', '»', '"', '\'', ':', '!', '?', ' ','\n'));
+        return getSymbol;
     }
 }
