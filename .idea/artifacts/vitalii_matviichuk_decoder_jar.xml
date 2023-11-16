@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="vitalii.matviichuk.decoder:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/vitalii_matviichuk_decoder_jar</output-path>
+    <root id="archive" name="vitalii.matviichuk.decoder.jar">
+      <element id="module-output" name="vitalii.matviichuk.decoder" />
+    </root>
+  </artifact>
+</component>

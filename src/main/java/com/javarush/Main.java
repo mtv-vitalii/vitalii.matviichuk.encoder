@@ -1,20 +1,17 @@
 package com.javarush;
 
-import FileService.FileService;
-
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.List;
+import CLI.CLI;
 
 
-// Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
-// then press Enter. You can now see whitespace characters in your code.
 public class Main {
-    public static void main(String[] args) throws IOException {
-        FileService fileService=new FileService();
-        fileService.FileRead("C:\\Users\\matvv\\IdeaProjects\\vitalii.matviichuk.decoder\\src\\test\\test.txt");
-        fileService.FileWrite();
+    public static void main(String[] args) throws Throwable {
+        CLI cli = new CLI();
+        if ((args.length) != 0) {
+            String[] args1 = new String[args.length];
+            for (int i = 0; i < args.length; i++) {
+                args1[i] = args[i];
+            }
+            cli.RunProgramWithArguments(args1);
+        } else cli.RunProgramFromConsole();
     }
 }
