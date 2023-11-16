@@ -1,81 +1,64 @@
 package CaesarCipher;
 
 import Alphabet.Alphabet;
+import CLI.CLI;
 import FileService.FileService;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class CaesarCipher {
-    public static final int ALPHABET_SIZE = 26;
-    Alphabet alphabet = new Alphabet();
-    FileService fileService = new FileService();
+    public static final int ALPHABET_SIZE = 61;
+    CLI cli = new CLI();
+    int key = cli.getKey();
 
-    List<Character> alphabetEnglishSmallLetters = alphabet.getAlphabetSmallLetters();
-    List<Character> alphabetEnglishBigLetters = alphabet.getAlphabetBigLetters();
-    List<Character> Symbols = alphabet.getSymbol();
-    List<Character> textOfInput = new ArrayList<>();
-    List<String> textCoder = new ArrayList<>();
-    int key = 3;
-    int code;
-
-    public List<String> getTextFromFile() throws IOException {
-        List<String> list = fileService.FileRead("C:\\Users\\matvv\\IdeaProjects\\vitalii.matviichuk.decoder\\src\\test\\test.txt");
-        return list;
+    public String ChoiceOfCommand(String command) throws IOException {
+        //CLI cli = new CLI();
+        if (command.equalsIgnoreCase("encrypt")) command = EncodingText();
+        else if (command.equalsIgnoreCase("decrypt")) command = DecodingText();
+        else System.out.println("You insert something wrong");
+        return command;
     }
 
-    public List<Character> convertStringtoCharacter() throws IOException {
-        List<Character> result = getTextFromFile().stream()
-                .flatMapToInt(String::chars)
-                .mapToObj(i -> (char) i)
-                .collect(Collectors.toList());
-        return result;
-    }
-    public List<String> codingText() throws IOException {
-        textOfInput = convertStringtoCharacter();
-        for (int j = 0; j < textOfInput.size(); j++) {
-            if (alphabetEnglishBigLetters.contains(textOfInput.get(j)))
-                textCoder.add(String.valueOf(codingBiglLeters((char) j)));
-            else if (alphabetEnglishSmallLetters.contains(textOfInput.get(j)))
-                textCoder.add(String.valueOf(codingSmallLeters((char) j)));
-            else if (Symbols.contains(textOfInput.get(j)))
-                textCoder.add(String.valueOf(textOfInput.get((char) j)));
-            else textCoder.add(String.valueOf(textOfInput.get((char) j)));
+    public String EncodingText() throws IOException {
+        StringBuilder stringBuilder = new StringBuilder();
+        Alphabet alphabet = new Alphabet();
+        FileService fileService = new FileService();
+        List<Character> textOfInput = fileService.FileRead(cli.getCommand());
+        for (int i = 0; i < textOfInput.size(); i++) {
+            int index = alphabet.AlphabetLetters().indexOf(textOfInput.get(i));
+            if (index != -1) {
+                index = (index + key) % ALPHABET_SIZE;
+                if (index < 0) {
+                    index += ALPHABET_SIZE;
+                }
+                stringBuilder.append(alphabet.AlphabetLetters().get(index));
+                if (index == ALPHABET_SIZE) {
+                    stringBuilder.append(alphabet.AlphabetLetters().get(key - 1));
+                }
+            } else stringBuilder.append((textOfInput.get(i)));
         }
-        return textCoder;
+        return stringBuilder.toString();
     }
 
-    public Character codingSmallLeters(Character smallLetter){
-        for (int i = 0; i < ALPHABET_SIZE; i++) {
-            code = i + key;
-            if (smallLetter.equals(alphabetEnglishSmallLetters.get(i))) {
-                if (code >= ALPHABET_SIZE)
-                    smallLetter = alphabetEnglishSmallLetters.get((1 - i - key) % (1 - ALPHABET_SIZE));
-                else if ((code >= 0) && (code < ALPHABET_SIZE))
-                    smallLetter = alphabetEnglishSmallLetters.get(code);
-                else if (code < 0)
-                    smallLetter = alphabetEnglishSmallLetters.get(Math.abs(code % ALPHABET_SIZE));
-            }
+    public String DecodingText() throws IOException {
+        StringBuilder stringBuilder = new StringBuilder();
+        Alphabet alphabet = new Alphabet();
+        FileService fileService = new FileService();
+        List<Character> textOfInput = fileService.FileRead(cli.getCommand());
+        for (int i = 0; i < textOfInput.size(); i++) {
+            int index = alphabet.AlphabetLetters().indexOf(textOfInput.get(i));
+            if (index != -1) {
+                index = (index - key) % ALPHABET_SIZE;
+                if (index < 0) {
+                    index += ALPHABET_SIZE;
+                }
+                stringBuilder.append(alphabet.AlphabetLetters().get(index));
+            } else stringBuilder.append((textOfInput.get(i)));
         }
-        return smallLetter;
-    }
-
-    public Character codingBiglLeters(Character bigLetter){
-        for (int i = 0; i < ALPHABET_SIZE; i++) {
-            code = i + key;
-            if (bigLetter.equals(alphabetEnglishBigLetters.get(i))) {
-                if (code >= ALPHABET_SIZE)
-                    bigLetter = alphabetEnglishBigLetters.get((1 - i - key) % (1 - ALPHABET_SIZE));
-                else if ((code >= 0) && (code < ALPHABET_SIZE))
-                    bigLetter = alphabetEnglishBigLetters.get(code);
-                else if (code < 0)
-                    bigLetter = alphabetEnglishBigLetters.get(Math.abs(code % ALPHABET_SIZE));
-            }
-        }
-        return bigLetter;
+        return stringBuilder.toString();
     }
 }
+
 
 

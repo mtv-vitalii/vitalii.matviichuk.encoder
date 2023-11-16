@@ -5,23 +5,11 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Alphabet {
-    public List<Character> getAlphabetSmallLetters() {//Create collection with small letters of english alphabet
-        List<Character> getAlphabetSmallLetters = new ArrayList<>(Arrays.asList());
-        for (char ch = 'a'; ch <= 'z'; ch++) {
-            getAlphabetSmallLetters.add(ch);
-        }
-        return getAlphabetSmallLetters;
-    }
-    public List<Character> getAlphabetBigLetters() {//Create collection with big letters of english alphabet
-        List<Character> getAlphabetBigLetters =new ArrayList<>(Arrays.asList());
-        for (char ch= 'A'; ch<='Z';ch++ ){
-            getAlphabetBigLetters.add(ch);
-        }
-        return getAlphabetBigLetters;
-    }
-
-    public List<Character> getSymbol() {//Create collection of special symbol
-        List<Character> getSymbol=new ArrayList<>(Arrays.asList('.', ',', '«', '»', '"', '\'', ':', '!', '?', ' ','\n'));
-        return getSymbol;
+    public List<Character> AlphabetLetters() {//Create collection with letters of english alphabet and some symbols.
+        List<Character> alphabet = new ArrayList<>(Arrays.asList(
+                'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w',
+                'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
+                'U', 'V', 'W', 'X', 'Y', 'Z', '.', ',', '«', '»', '"', '\'', ':', '!', ' ', ' '));
+        return alphabet;
     }
 }
