@@ -5,24 +5,27 @@ import FileService.FileService;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class CLI {
-    public static String command;
-    public static String path;
-    public static int key;
-    public void RunProgramWithArguments(String[] args) throws IOException {
-                command = args[0];
-                path = args[1];
-                key = Integer.parseInt(args[2]);
-                FileService fileService = new FileService();
-                fileService.FileRead(command);
-                CaesarCipher caesarCipher = new CaesarCipher();
-                caesarCipher.ChoiceOfCommand(command);
-                fileService.FileWrite(command, path);
-        }
+    private static String command;
+    private static String path;
+    private static int key;
 
-    public void RunProgramFromConsole() throws IOException {
+    public void runProgramWithArguments(String[] args) throws IOException {
+        command = args[0];
+        path = args[1];
+        key = Integer.parseInt(args[2]);
+        FileService fileService = new FileService();
+        fileService.fileRead(command);
+        CaesarCipher caesarCipher = new CaesarCipher();
+        caesarCipher.choiceOfCommand(command);
+        fileService.fileWrite(command);
+    }
+
+    public void runProgramFromConsole() throws IOException {
         Scanner scanner = new Scanner(System.in);
         ArrayList<String> partsOfInputWords = new ArrayList<>();
         System.out.println("Please insert:");
@@ -30,24 +33,25 @@ public class CLI {
         System.out.println("--------------------------------------------------------------");
         String lineFromConsole = scanner.nextLine();
         scanner.close();
-        for (String word: lineFromConsole.split(" ")) {
-            partsOfInputWords.add(word);
-        }
-        command=partsOfInputWords.get(0);
-        path=partsOfInputWords.get(1);
-        key= Integer.parseInt(partsOfInputWords.get(2));
+        Collections.addAll(partsOfInputWords, lineFromConsole.split(" "));
+        command = partsOfInputWords.get(0);
+        path = partsOfInputWords.get(1);
+        key = Integer.parseInt(partsOfInputWords.get(2));
         FileService fileService = new FileService();
-        fileService.FileRead(command);
+        fileService.fileRead(command);
         CaesarCipher caesarCipher = new CaesarCipher();
-        caesarCipher.ChoiceOfCommand(command);
-        fileService.FileWrite(command, path);
+        caesarCipher.choiceOfCommand(command);
+        fileService.fileWrite(command);
     }
+
     public String getCommand() {
         return this.command;
     }
+
     public String getPath() {
         return this.path;
     }
+
     public int getKey() {
         return this.key;
     }

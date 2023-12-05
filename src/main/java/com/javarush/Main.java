@@ -11,7 +11,7 @@ public class Main {
             for (int i = 0; i < args.length; i++) {
                 args1[i] = args[i];
             }
-            cli.RunProgramWithArguments(args1);
-        } else cli.RunProgramFromConsole();
+            cli.runProgramWithArguments(args1);
+        } else cli.runProgramFromConsole();
     }
 }
